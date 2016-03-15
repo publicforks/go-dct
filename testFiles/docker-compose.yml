@@ -1,0 +1,13 @@
+version: '2'
+
+services:
+  nginx:  
+    image: nginx:stable-alpine
+    ports:
+      - "8088:80"
+      - "44443:443"
+  web:  
+    image: nginx:stable-alpine
+    ports:
+      - "8089:80"
+      - "44444:443"

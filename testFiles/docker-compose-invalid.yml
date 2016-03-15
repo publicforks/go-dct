@@ -1,0 +1,8 @@
+version: '2'
+
+servicesTYPO:
+  nginx:  
+    image: nginx:stable-alpine
+    ports:
+      - "8088:80"
+      - "44443:443"
