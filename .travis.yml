@@ -6,7 +6,7 @@ services:
   - docker
 
 go:
-  - release
+  - 1.6
 
 env:
   DOCKER_COMPOSE_VERSION: 1.6.0
