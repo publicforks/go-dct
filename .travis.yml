@@ -1,0 +1,26 @@
+sudo: required
+
+language: go
+
+services:
+  - docker
+
+go:
+  - release
+
+env:
+  DOCKER_COMPOSE_VERSION: 1.6.0
+
+before_install:
+  - sudo apt-get -qq update 
+  - sudo apt-get install -o Dpkg::Options::="--force-confold" --force-yes -y docker-engine
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+  - go get github.com/mattn/goveralls
+  - go get golang.org/x/tools/cmd/cover
+
+script:
+  - go test -v -covermode=count -coverprofile=coverage.out ./...
+  - $HOME/gopath/bin/goveralls -coverprofile=coverage.out -service travis-ci -repotoken $COVERALLS_TOKEN

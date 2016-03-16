@@ -1,6 +1,8 @@
 Docker Compose Test environment for go tests
 ==============================================
 [![GoDoc](https://godoc.org/github.com/kbudde/go-dct?status.svg)](https://godoc.org/github.com/kbudde/go-dct)
+[![Build Status](https://travis-ci.org/kbudde/go-dct.svg?branch=master)](https://travis-ci.org/kbudde/go-dct)
+[![Coverage Status](https://coveralls.io/repos/github/kbudde/go-dct/badge.svg?branch=master)](https://coveralls.io/github/kbudde/go-dct?branch=master)
 
 Go-dct leverages ```go test``` to prepare integration test environments on demand for running tests against real services use docker compose. 
 
