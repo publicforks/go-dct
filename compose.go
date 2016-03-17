@@ -4,9 +4,7 @@ import (
 	"bytes"
 	"errors"
 	"fmt"
-	"net"
-	"net/url"
-	"os"
+
 	"os/exec"
 	"strings"
 )
@@ -30,26 +28,6 @@ type TestEnv interface {
 	StopAll() error
 	RemoveAll() error
 	ServiceCount() (int, error)
-}
-
-func getDockerHost() string {
-	defaultHost := "127.0.0.1"
-
-	dockerHost := os.Getenv("DOCKER_HOST")
-	if dockerHost == "" {
-		return defaultHost
-	}
-
-	hostport, err := url.Parse(dockerHost)
-	if err != nil {
-		return defaultHost
-	}
-
-	host, _, err := net.SplitHostPort(hostport.Host)
-	if err != nil {
-		return defaultHost
-	}
-	return host
 }
 
 //NewComposer initializes a new Composer for automatic tests
