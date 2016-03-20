@@ -1,6 +1,7 @@
 package dct
 
 import (
+	"fmt"
 	"testing"
 )
 
@@ -38,17 +39,20 @@ func TestURI(t *testing.T) {
 	if err != nil {
 		t.Errorf("Error starting services: %v", err)
 	}
+	dockerHost := getDockerHost()
 
+	expected := fmt.Sprintf("%v:8088", dockerHost)
 	if res, err := comp.Service("nginx").URI("80"); err != nil {
 		t.Errorf("Error getting service: %v", err)
-	} else if res != "127.0.0.1:8088" {
-		t.Errorf("Wrong URI for 127.0.0.1:80: %v", res)
+	} else if res != expected {
+		t.Errorf("Wrong URI for port 80. Expected: %v, got: %v", expected, res)
 	}
 
+	expected = fmt.Sprintf("%v:44443", dockerHost)
 	if res, err := comp.Service("nginx").URI("443"); err != nil {
 		t.Errorf("Error getting service: %v", err)
-	} else if res != "127.0.0.1:44443" {
-		t.Errorf("Wrong URI for 127.0.0.1:443: %v", res)
+	} else if res != expected {
+		t.Errorf("Wrong URI for port 443. Expected: %v, got: %v", expected, res)
 	}
 
 	if res, err := comp.Service("nginx").URI("11111"); err != ErrUnknownServiceOrPort {
